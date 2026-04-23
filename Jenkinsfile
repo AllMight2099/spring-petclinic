@@ -1,7 +1,6 @@
 
 // NOTE: Add this file to the spring-petclinic root directory and commit it to your GitHub repository. 
 //Jenkins will automatically detect it and run the pipeline on each push to the main branch.
-#!/usr/bin/env groovy
 
 pipeline {
     agent any
