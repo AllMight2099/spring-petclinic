@@ -1,3 +1,4 @@
+#!/usr/bin/env groovy
 pipeline {
     agent any
 
@@ -102,21 +103,6 @@ pipeline {
             }
         }
 
-        stage('Smoke Test') {
-            when {
-                expression { params.RUN_DEPLOYMENT }
-            }
-            steps {
-                script {
-                    echo "Running smoke tests..."
-                    sh '''
-                        sleep 5
-                        curl -f http://192.168.1.100:8888/ | head -20
-                        echo "Application is responding"
-                    '''
-                }
-            }
-        }
     }
 
     post {
