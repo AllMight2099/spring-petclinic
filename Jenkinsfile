@@ -1,4 +1,8 @@
+
+// NOTE: Add this file to the spring-petclinic root directory and commit it to your GitHub repository. 
+//Jenkins will automatically detect it and run the pipeline on each push to the main branch.
 #!/usr/bin/env groovy
+
 pipeline {
     agent any
 
@@ -62,13 +66,12 @@ pipeline {
                     '''
                     echo 'Running SonarQube analysis...'
                     sh '''
-                        mvn -B sonar:sonar \
+                        mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar \
                             -DskipTests \
                             -Dsonar.projectKey=spring-petclinic \
                             -Dsonar.projectName="Spring Petclinic" \
                             -Dsonar.host.url="${SONAR_HOST_URL}" \
-                            -Dsonar.login="${SONARQUBE_USERNAME}" \
-                            -Dsonar.password="${SONARQUBE_PASSWORD}"
+                            -Dsonar.token="${SONAR_TOKEN}"
                     '''
                 }
             }
