@@ -5,10 +5,6 @@
 pipeline {
     agent any
 
-    parameters {
-        booleanParam(name: 'RUN_DEPLOYMENT', defaultValue: false, description: 'Deploy the built artifact with Ansible after analysis')
-    }
-
     options {
         timestamps()
         timeout(time: 1, unit: 'HOURS')
@@ -88,9 +84,6 @@ pipeline {
         }
 
         stage('Deploy to Production') {
-            when {
-                expression { params.RUN_DEPLOYMENT }
-            }
             steps {
                 script {
                     echo "Deploying to production via Ansible..."
