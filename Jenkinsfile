@@ -104,7 +104,7 @@ pipeline {
                     echo "Running security scan against petclinic-target..."
                     
                     // Use the absolute path so Jenkins finds the script outside the workspace
-                    sh '/var/jenkins_home/security-scan.sh || true'
+                    sh 'security-scan.sh || true'
                     
                     sh '''
                         echo "===== NMAP REPORT ====="
@@ -127,7 +127,7 @@ pipeline {
             archiveArtifacts artifacts: 'security-reports/**',
                 allowEmptyArchive: true
         }
-        
+
         success {
             echo "Pipeline completed successfully!"
         }
