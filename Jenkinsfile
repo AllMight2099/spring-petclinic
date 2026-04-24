@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     echo "Running unit tests..."
-                    sh 'mvn -B test'
+                    sh 'TESTCONTAINERS_HOST_OVERRIDE=host.docker.internal mvn -B test'
                 }
             }
         }
