@@ -83,7 +83,7 @@ pipeline {
             }
         }
 
-        stage('Deploy to Production') {
+        stage('Deploy to Production VM') {
             steps {
                 script {
                     echo "Deploying to production via Ansible..."
@@ -98,9 +98,36 @@ pipeline {
             }
         }
 
+        stage('Security Scan') {
+            steps {
+                script {
+                    echo "Running security scan against petclinic-target..."
+                    
+                    // Use the absolute path so Jenkins finds the script outside the workspace
+                    sh '/var/jenkins_home/security-scan.sh || true'
+                    
+                    sh '''
+                        echo "===== NMAP REPORT ====="
+                        cat security-reports/nmap-report.txt || echo "Nmap report not found"
+                        
+                        echo "===== TRIVY REPORT ====="
+                        cat security-reports/trivy-report.txt || echo "Trivy report not found"
+                        
+                        echo "===== FFUF REPORT ====="
+                        cat security-reports/ffuf-report.json || echo "FFUF report not found"
+                    '''
+                }
+            }
+        }
+
     }
 
     post {
+        always {
+            archiveArtifacts artifacts: 'security-reports/**',
+                allowEmptyArchive: true
+        }
+        
         success {
             echo "Pipeline completed successfully!"
         }
