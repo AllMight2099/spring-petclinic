@@ -32,12 +32,13 @@
   opacity: 1;
 }
 
-.navbar li > a, .navbar-text {
+.navbar li > a,
+.navbar-text {
   font-family: "montserratregular", sans-serif;
   text-shadow: none;
   font-size: 14px;
 
-/* line-height: 14px; */
+  /* line-height: 14px; */
   padding: 28px 20px;
   transition: all 0.15s;
   -webkit-transition: all 0.15s;
@@ -56,7 +57,7 @@
 }
 .navbar li:hover > a {
   color: #eeeeee;
-  background-color: #6db33f;
+  background-color: #16eae3;
 }
 
 .navbar-toggle {
@@ -69,5 +70,4 @@
     width: 19px;
     height: 3px;
   }
-
 }
